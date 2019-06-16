@@ -1,44 +1,44 @@
 export interface Staff {
-  id: number;
-  registeredId: number;
+  id: string;
+  registeredId: string;
   name: string;
   band: string;
   startDate: string;
   status: string;
   ward: string;
-  roleId: number;
+  roleId: string;
 }
 export interface StaffResponse {
   staff: Array<Staff>;
 }
 
 export interface Training {
-  id: number;
-  date: Date;
-  equipmentId: number;
-  staffId: number;
+  id: string;
+  date: string;
+  equipmentId: string;
+  staffId: string;
 }
 export interface TrainingResponse {
   trainings: Array<Training>;
 }
 
 export interface Equipment {
-  id: number;
+  id: string;
   manufacturer: string;
   type: string;
   model: string;
   ward: string;
-  serviceDate: Date;
-  version: number;
+  serviceDate: string;
+  version: string;
 }
 export interface EquipmentResponse {
   equipments: Array<Equipment>;
 }
 
 export interface Role {
-  id: number;
+  id: string;
   name: string;
-  requiredTraining: Array<number>;
+  equipment: Array<string>;
 }
 export interface RoleResponse {
   roles: Array<Role>;

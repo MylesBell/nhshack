@@ -35,25 +35,43 @@ class App extends Component<{}, AppState> {
 
   componentDidMount() {
     getStaff().then(res => {
-      this.setState(state =>
-        Object.assign({}, state, res, { staffFiltered: res.staff })
-      );
+      this.setState(state => {
+        console.log(
+          Object.assign({}, state, res, { staffFiltered: res.staff })
+        );
+        return Object.assign({}, state, res, { staffFiltered: res.staff });
+      });
     });
-    getEquipment().then(res =>
-      this.setState(state =>
-        Object.assign({}, state, res, { equipmentsFiltered: res.equipments })
-      )
-    );
-    getRoles().then(res =>
-      this.setState(state =>
-        Object.assign({}, state, res, { rolesFiltered: res.roles })
-      )
-    );
-    getTraining().then(res =>
-      this.setState(state =>
-        Object.assign({}, state, res, { trainingsFiltered: res.trainings })
-      )
-    );
+    getEquipment().then(res => {
+      this.setState(state => {
+        console.log(
+          Object.assign({}, state, res, { equipmentsFiltered: res.equipments })
+        );
+        return Object.assign({}, state, res, {
+          equipmentsFiltered: res.equipments
+        });
+      });
+    });
+    getRoles().then(res => {
+      this.setState(state => {
+        console.log(
+          Object.assign({}, state, res, { rolesFiltered: res.roles })
+        );
+        return Object.assign({}, state, res, {
+          rolesFiltered: res.roles
+        });
+      });
+    });
+    getTraining().then(res => {
+      this.setState(state => {
+        console.log(
+          Object.assign({}, state, res, { trainingsFiltered: res.trainings })
+        );
+        return Object.assign({}, state, res, {
+          trainingsFiltered: res.trainings
+        });
+      });
+    });
   }
 
   search(name: string, ward: string, equipmentName: string) {
@@ -102,20 +120,33 @@ class App extends Component<{}, AppState> {
     });
   }
 
-  doneTraining(member: Staff, roles: Array<Role>, trainings: Array<Training>) {
+  trainingComplete = (state: AppState) => {
+    console.log("training", state);
+    let complete = state.staffFiltered.filter(member =>
+      this.doneTraining(member, state.roles, state.trainings)
+      ).length;
+    console.log("training result", complete);
+    return complete;
+  };
+
+  doneTraining = (
+    member: Staff,
+    roles: Array<Role>,
+    trainings: Array<Training>
+  ) => {
     let memberRole = roles.find(role => member.roleId === role.id);
     if (!memberRole) {
       return false;
     }
+    console.log("member", memberRole);
 
-    let memberTraining = memberRole.requiredTraining.filter(x => trainings.find(y => y.equipmentId === x && y.staffId === member.id));
-    return memberRole.requiredTraining.length === memberTraining.length;
-  }
+    let memberTraining = memberRole.equipment.filter(x =>
+      trainings.find(y => y.equipmentId === x && y.staffId === member.id)
+    );
+    return memberRole.equipment.length <= memberTraining.length;
+  };
 
   render() {
-    let complete = this.state.staffFiltered.filter(member => this.doneTraining(member, this.state.roles, this.state.trainings)).length;
-    let required = this.state.staffFiltered.length - complete;
-
     return (
       <div className="App">
         <Filters
@@ -125,13 +156,23 @@ class App extends Component<{}, AppState> {
         />
         <PieChart
           data={[
-            { title: "Complete", value: complete, color: "#E38627" },
-            { title: "Required", value: required, color: "#C13C37"},
+            {
+              title: "Complete",
+              value: this.trainingComplete(this.state),
+              color: "#33e327"
+            },
+            {
+              title: "Required",
+              value:
+                this.state.staffFiltered.length -
+                this.trainingComplete(this.state),
+              color: "#C13C37"
+            }
           ]}
           lineWidth={15}
           paddingAngle={5}
           lengthAngle={-360}
-          style={{ height: 300, padding: 20}}
+          style={{ height: 300, padding: 20 }}
         />
         <StaffTable staff={this.state.staffFiltered} />
         <EquipmentTable equipments={this.state.equipmentsFiltered} />

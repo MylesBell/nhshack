@@ -20,6 +20,7 @@ export default class StaffTable extends Component<StaffResponse, {}> {
               <TableCell align="right">Registered ID</TableCell>
               <TableCell align="right">Name</TableCell>
               <TableCell align="right">Band</TableCell>
+              <TableCell align="right">Role Id</TableCell>
               <TableCell align="right">Start Date</TableCell>
               <TableCell align="right">Status</TableCell>
               <TableCell align="right">Ward</TableCell>
@@ -34,6 +35,7 @@ export default class StaffTable extends Component<StaffResponse, {}> {
                 <TableCell align="right">{member.registeredId}</TableCell>
                 <TableCell align="right">{member.name}</TableCell>
                 <TableCell align="right">{member.band}</TableCell>
+                <TableCell align="right">{member.roleId}</TableCell>
                 <TableCell align="right">{member.startDate}</TableCell>
                 <TableCell align="right">{member.status}</TableCell>
                 <TableCell align="right">{member.ward}</TableCell>

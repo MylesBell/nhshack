@@ -34,7 +34,7 @@ export default class TrainingTable extends Component<Props, {}> {
                 <TableCell component="th" scope="row">
                   {training.id}
                 </TableCell>
-                <TableCell align="right">{training.date.toDateString()}</TableCell>
+                <TableCell align="right">{training.date}</TableCell>
                 <TableCell align="right">{training.equipmentId}</TableCell>
                 <TableCell align="right">{training.staffId}</TableCell>
               </TableRow>

@@ -15,11 +15,12 @@ export default function StaffCreate() {
     setMember(newValues);
   };
   const post = () => {
+      console.log(member);
       if (member) {
         createStaff(member);
       }
   }
-  
+
   return (
     <Paper style={{ padding: 20 }}>
       <Typography variant="h4">Staff Create</Typography>

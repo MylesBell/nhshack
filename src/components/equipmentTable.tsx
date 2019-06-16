@@ -35,7 +35,7 @@ export default class EquipmentTable extends Component<EquipmentResponse,{}> {
                 <TableCell align="right">{equipment.type}</TableCell>
                 <TableCell align="right">{equipment.model}</TableCell>
                 <TableCell align="right">{equipment.ward}</TableCell>
-                <TableCell align="right">{equipment.serviceDate.toDateString()}</TableCell>
+                <TableCell align="right">{equipment.serviceDate}</TableCell>
                 <TableCell align="right">{equipment.version}</TableCell>
               </TableRow>
             ))}

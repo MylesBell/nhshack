@@ -28,7 +28,7 @@ export default class RoleTable extends Component<RoleResponse, {}> {
                   {role.id}
                 </TableCell>
                 <TableCell align="right">{role.name}</TableCell>
-                <TableCell align="right">{role.requiredTraining}</TableCell>
+                <TableCell align="right">{role.equipment}</TableCell>
               </TableRow>
             ))}
           </TableBody>
